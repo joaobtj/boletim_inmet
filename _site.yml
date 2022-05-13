@@ -1,0 +1,8 @@
+name: "Clima INMET"
+navbar:
+  title: "Clima INMET"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html

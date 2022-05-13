@@ -1,0 +1,13 @@
+---
+title: "Sobre este site"
+---
+
+Dados de clima obtidos do API do INMET.
+
+Trabalho de conclusão de curso de Werner Augusto Kupske.
+
+Orientador: 
+
+Prof. Dr. João Batista Tolentino Júnior
+
+Mais em https://github.com/joaobtj/clima_inmet_site
