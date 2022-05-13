@@ -1,6 +1,7 @@
 library(httr2)
 library(dplyr, warn.conflicts = FALSE)
 library(lubridate, warn.conflicts = FALSE)
+library(janitor)
 source("ET0_calc.R")
 
 ## Download from INMET API - Estações
