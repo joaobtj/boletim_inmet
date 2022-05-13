@@ -24,7 +24,7 @@ anos <- with(CBS, seq( DT_INICIO_OPERACAO %>% year() %>% add(1) ,
  now() %>% year() %>% subtract(1),1))
 
 a <- list()
-for (i in seq_along(anos[1:1])) {
+for (i in seq_along(anos[1:2])) {
   a[[i]] <- with(CBS, get_inmet(data_ini = paste0(anos[i],"-01-01"), 
                                 data_fim = paste0(anos[i]+1, "-01-01"), 
                                 station=CD_ESTACAO, 
