@@ -8,36 +8,26 @@ library(magrittr)
 library(lubridate)
 library(readxl)
 library(readr)
+library(knitr)
 source("api_inmet.R")
-
+source("file_cidade.R")
 ```
+
 
 
 # Estações de Santa Catarina SC
 
-# Curitibanos - SC (desde 27/02/2008)
+```{r include=FALSE}
 
-```{r, include=FALSE}
-CBS <- readxl::read_excel("estacoes.xlsx", sheet = "SC") %>% dplyr::filter(DC_NOME == "CURITIBANOS") 
+m <- c("CURITIBANOS", "JOACABA", "INDAIAL", "SAO JOAQUIM")
 
-anos <- with(CBS, seq( DT_INICIO_OPERACAO %>% year() %>% add(1) ,
- now() %>% year() %>% subtract(1),1))
-
-a <- list()
-for (i in seq_along(anos)) {
-  a[[i]] <- with(CBS, get_inmet(data_ini = paste0(anos[i],"-01-01"), 
-                                data_fim = paste0(anos[i]+1, "-01-01"), 
-                                station=CD_ESTACAO, 
-                                alt=VL_ALTITUDE, 
-                                lat=VL_LATITUDE)) %>% filter(year(data) ==anos[i])
+out = NULL
+for (i in seq_along(m)) {
+cidade <- m[i]
+out = c(out, knit_child('_cidade.Rmd'))
 }
-
-
-readr::write_csv(bind_rows(a), "data/cbs.csv")
 
 ```
 
-
-Download dos dados para Curitibanos-SC: [cbs.csv](data/cbs.csv)
-
+`r paste(knit(text = out), collapse = '\n')`
 

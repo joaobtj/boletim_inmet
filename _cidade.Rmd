@@ -1,0 +1,16 @@
+```{r, include=FALSE}
+fc <- file_cidade(cidade)
+```
+
+
+
+## `r paste0(cidade)` - SC (desde `r paste0(fc$DT_INICIO_OPERACAO)`)
+
+
+
+
+```{r, include=FALSE}
+       out <- paste0("[",cidade,".csv](data/",cidade,".csv)")
+```
+
+Download dos dados para `r cidade`: `r paste(out, collapse = '\n')`
