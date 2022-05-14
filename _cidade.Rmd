@@ -1,16 +1,39 @@
 ```{r, include=FALSE}
-fc <- file_cidade(cidade)
+  ftc <- file_tempo(cidade)
+
+if (!file.exists(paste0("data/", cidade, ".csv"))) { # se o arquivo nao existe
+  fc <- file_cidade(cidade)
+} else {
+  nc <- readr::read_csv(paste0("data/", cidade, ".csv"), show_col_types = FALSE)
+
+  ggg <- nc %>% summarise(
+    first = first(data) %>% year(),
+    last = last(data) %>% year()
+  )
+
+  
+  hhh <- tibble(
+    first = ftc$anos %>% head(1),
+    last = ftc$anos %>% tail(1)
+  )
+
+  if (!all(ggg == hhh)) {# se os anos sao diferentes
+    fc <- file_cidade(cidade) 
+  } 
+}
 ```
 
 
 
-## `r paste0(cidade)` - SC (desde `r paste0(fc$DT_INICIO_OPERACAO)`)
+
+
+## `r paste0(cidade)` - SC (desde `r paste0(ftc$obj$DT_INICIO_OPERACAO)`)
 
 
 
 
 ```{r, include=FALSE}
-       out <- paste0("[",cidade,".csv](data/",cidade,".csv)")
+out <- paste0("[", cidade, ".csv](data/", cidade, ".csv)")
 ```
 
 Download dos dados para `r cidade`: `r paste(out, collapse = '\n')`
