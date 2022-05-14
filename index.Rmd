@@ -20,7 +20,7 @@ source("file_cidade.R")
 ```{r include=FALSE}
 
 m <- c("CURITIBANOS", "JOACABA", "INDAIAL", "SAO JOAQUIM",
-       "ITUPORANGA")
+       "ITUPORANGA", "RIO DO CAMPO")
 
 out = NULL
 for (i in seq_along(m)) {
