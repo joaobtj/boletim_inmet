@@ -20,7 +20,7 @@ source("file_cidade.R")
 ```{r include=FALSE}
 
 m <- c("CURITIBANOS", "JOACABA", "INDAIAL", "SAO JOAQUIM",
-       "ITUPORANGA", "RIO DO CAMPO","CACADOR"
+       "ITUPORANGA", "RIO DO CAMPO","CACADOR",
        "MAJOR VIEIRA")
 
 out = NULL
