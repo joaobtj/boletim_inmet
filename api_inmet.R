@@ -28,12 +28,14 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
     dplyr::mutate(
       data = lubridate::ymd_hm(paste(DT_MEDICAO, HR_MEDICAO)),
       data = lubridate::with_tz(data, tzone = "Etc/GMT+3")
-    ) %>%    
+    ) %>%
     janitor::clean_names() %>%
-    dplyr::select(-c(dc_nome, vl_latitude, uf, vl_longitude, cd_estacao, dt_medicao, hr_medicao, ten_bat)) %>%
+    dplyr::select(c(
+      data, chuva, pre_ins, pre_max, pre_min, pto_ins, pto_max, pto_min, rad_glo,
+      tem_ins, tem_max, tem_min, umd_ins, umd_max, umd_min, ven_raj, ven_vel
+    )) %>%
     dplyr::mutate(across(.cols = !data, as.numeric)) %>%
     dplyr::relocate(data)
-
 
 
 
@@ -43,17 +45,24 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
     group_by(data) %>%
     summarise(
       chuva = sum(chuva),
+      pre_med = mean(pre_ins),
+      pre_max = max(pre_max),
+      pre_min = min(pre_min),
+      pto_med = mean(pto_ins),
+      pto_max = max(pto_max),
+      pto_min = min(pto_min),
+      rad_glo = sum(rad_glo),
+      tem_med = mean(tem_ins),
       tem_max = max(tem_max),
       tem_min = min(tem_min),
-      tem_med = mean(tem_ins),
+      umd_med = mean(umd_ins),
       umd_max = max(umd_max),
       umd_min = min(umd_min),
-      umd_med = mean(umd_ins),
+      ven_raj_max = max(ven_raj),
       ven_vel_med = mean(ven_vel),
-      rad_glo = sum(rad_glo),
-      et0 = ET0_calc(tem_max, tem_min, tem_med, umd_med, ven_vel_med, rad_glo /1000, alt = alt, lat = lat)
+      et0 = ET0_calc(tem_max, tem_min, tem_med, umd_med, ven_vel_med, rad_glo / 1000, alt = alt, lat = lat)
     ) %>%
-    dplyr::slice_head(n=-1) %>%
-    dplyr::slice_tail(n=-1) %>%
+    dplyr::slice_head(n = -1) %>%
+    dplyr::slice_tail(n = -1) %>%
     dplyr::arrange(data)
 }

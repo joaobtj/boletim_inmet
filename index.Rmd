@@ -1,6 +1,3 @@
----
-title: "Dados históricos de clima do INMET"
----
 
 ```{r, include=FALSE}
 library(dplyr)
@@ -23,6 +20,8 @@ m <- c("CURITIBANOS", "JOACABA", "INDAIAL", "SAO JOAQUIM",
        "ITUPORANGA", "RIO DO CAMPO","CACADOR",
        "XANXERE", "ITAPOA", "FLORIANOPOLIS"
 )
+
+
 
 out = NULL
 for (i in seq_along(m)) {

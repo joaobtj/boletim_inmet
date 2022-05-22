@@ -1,3 +1,4 @@
+
 ```{r, include=FALSE}
   ftc <- file_tempo(cidade)
 
@@ -20,6 +21,8 @@ if (!file.exists(paste0("data/", cidade, ".csv"))) { # se o arquivo nao existe
   if (!all(ggg == hhh)) {# se os anos sao diferentes
     fc <- file_cidade(cidade) 
   } 
+  
+  
 }
 ```
 
