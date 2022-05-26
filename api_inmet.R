@@ -2,13 +2,14 @@ library(httr2)
 library(dplyr, warn.conflicts = FALSE)
 library(lubridate, warn.conflicts = FALSE)
 library(janitor)
-source("ET0_calc.R")
+devtools::install_github("joaobtj/hydirrig")
+#source("ET0_calc.R")
 
 ## Download from INMET API - Estações
 ## https://portal.inmet.gov.br/manual/manual-de-uso-da-api-esta%C3%A7%C3%B5es
 
 # data_ini <- "2012-01-01" # "2016-02-20"
-# data_fim <- "2013-01-01" # "2016-02-22"
+# data_fim <- "2012-02-01" # "2016-02-22"
 # station <- "A860" # Curitibanos-SC
 # alt = 978.10
 # lat = -27.288624
@@ -60,7 +61,7 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
       umd_min = min(umd_min),
       ven_raj_max = max(ven_raj),
       ven_vel_med = mean(ven_vel),
-      et0 = ET0_calc(tem_max, tem_min, tem_med, umd_med, ven_vel_med, rad_glo / 1000, alt = alt, lat = lat)
+      et0 = hydirrig::et0_calc(tem_max, tem_min, umd_max, umd_min, uv=ven_vel_med, rs=rad_glo/1000, lat=lat, alt=alt, date=data)
     ) %>%
     dplyr::slice_head(n = -1) %>%
     dplyr::slice_tail(n = -1) %>%
