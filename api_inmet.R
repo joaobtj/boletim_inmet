@@ -9,7 +9,7 @@ devtools::install_github("joaobtj/hydirrig")
 ## https://portal.inmet.gov.br/manual/manual-de-uso-da-api-esta%C3%A7%C3%B5es
 
 # data_ini <- "2012-01-01" # "2016-02-20"
-# data_fim <- "2012-02-01" # "2016-02-22"
+# data_fim <- "2012-09-01" # "2016-02-22"
 # station <- "A860" # Curitibanos-SC
 # alt = 978.10
 # lat = -27.288624
@@ -39,7 +39,7 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
     dplyr::relocate(data)
 
 
-
+## Quando coloca a funao et0 ele desagrupa ????
   ## Dia
   dados_dia <- dados_hora %>%
     mutate(data = lubridate::date(data)) %>%
@@ -65,5 +65,9 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
     ) %>%
     dplyr::slice_head(n = -1) %>%
     dplyr::slice_tail(n = -1) %>%
-    dplyr::arrange(data)
+    dplyr::arrange(data) %>%
+    distinct(data, .keep_all = TRUE)
 }
+
+
+
