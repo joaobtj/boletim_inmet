@@ -8,12 +8,12 @@ devtools::install_github("joaobtj/hydirrig")
 ## Download from INMET API - Estações
 ## https://portal.inmet.gov.br/manual/manual-de-uso-da-api-esta%C3%A7%C3%B5es
 
-# data_ini <- "2012-01-01" # "2016-02-20"
-# data_fim <- "2012-09-01" # "2016-02-22"
-# station <- "A860" # Curitibanos-SC
-# alt = 978.10
-# lat = -27.288624
-# tst <- get_inmet(data_ini, data_fim, station, alt, lat)
+ # data_ini <- "2021-01-01" # "2016-02-20"
+ # data_fim <- "2021-09-01" # "2016-02-22"
+ # station <- "A860" # Curitibanos-SC
+ # alt = 978.10
+ # lat = -27.288624
+ # tst <- get_inmet(data_ini, data_fim, station, alt, lat)
 
 
 get_inmet <- function(data_ini, data_fim, station, alt, lat) {
@@ -31,15 +31,14 @@ get_inmet <- function(data_ini, data_fim, station, alt, lat) {
       data = lubridate::with_tz(data, tzone = "Etc/GMT+3")
     ) %>%
     janitor::clean_names() %>%
-    dplyr::select(c(
-      data, chuva, pre_ins, pre_max, pre_min, pto_ins, pto_max, pto_min, rad_glo,
-      tem_ins, tem_max, tem_min, umd_ins, umd_max, umd_min, ven_raj, ven_vel
-    )) %>%
+    dplyr::select(any_of(c(
+      "data", "chuva", "pre_ins", "pre_max", "pre_min", "pto_ins", "pto_max", "pto_min", "rad_glo",
+      "tem_ins", "tem_max", "tem_min", "umd_ins", "umd_max", "umd_min", "ven_raj", "ven_vel"
+    ))) %>%
     dplyr::mutate(across(.cols = !data, as.numeric)) %>%
     dplyr::relocate(data)
 
 
-## Quando coloca a funao et0 ele desagrupa ????
   ## Dia
   dados_dia <- dados_hora %>%
     mutate(data = lubridate::date(data)) %>%
