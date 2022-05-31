@@ -9,37 +9,35 @@
 #' @param Vv velocidade do vento
 #' @param Rn saldo de radiacao
 #' @param alt altitude da estavao
-#' @param zv altura em que foi medido o vento# INSERIR EVAPOTRANSPIRAÇAO
-# TMax <- unlist(x[,5])
-# TMin <- unlist(x[,4])
-# TMed <- unlist(x[,3])
-# UR <- unlist(x[,6])
-# Vv <- unlist(x[,7])
-# Rg <- unlist(x[,8])
-# 
-# # adiciona a coluna da ETO
-# x <- cbind(x, ETO = ET0_calc(TMax, TMin, TMed, UR, Vv, Rg, alt, zv=2, lat))
+#' @param zv altura em que foi medido o vento
 #' 
 #' @return ETO
 #' 
 #' @examples 
 #' 
 #' ET0_calc (TMax = 26.6, TMin = 17.3, TMed = 20.3, UR = 87.3, Vv = 1.96, Rg = 13.7, alt = 1000, zv = 2, lat = -0.4712)
-#' ET0_calc (TMax = 26.6, TMin = 17.3, TMed = 20.3, UR = 87.3, Vv = 1.96, alt = 1000, zv = 2, lat = -0.4712)
-#' ET0_calc (26.7, 16.4, 20.78, 83.19, 1.789, 271.7, 1000, 2, -0.4712)
-#' 
-#' TMax =26.7
-#' TMin = 16.4
-#' TMed = 20.78
-#' UR = 83.19
-#' Vv = 1.78
-#' zv = 2
-#' alt = 1000
-#' lat = -0.4712
-#' Rg = 271
+#' ## Dados estacao INMET Curitibanos 01/01/2009
+#' TMax = 27.6
+#'  TMin = 17.2
+#'   TMed = 21.0
+#'    UR = 78.7
+#'     Vv = 3.4
+#'      Rg = 19149.62
+#'       alt = 978
+#'       zv=2
+#'        lat = -27.288624
+#' ET0_calc (TMax = 27.6, TMin = 17.2, TMed = 21.0, UR = 78.7, 
+#'           Vv = 3.4, Rg = 19149.62/1000, alt = 978, zv = 2, lat = -27.288624)
+#'           ## ET0 boletim deveria ser 4,89 ???
 
 
-ET0_calc <- function(TMax, TMin, TMed, UR, Vv, Rg, alt, zv=2, lat){
+
+
+et0 <- (D*(rn-g)+pa*cp*(es-ea)/ra)/(D+y*(1+rs/ra))
+
+
+
+ET0_calc <- function(TMax, TMin, TMed, UR, Vv, Rg, alt, lat, zv=2){
     
     e0_TMax <- 0.6108*exp((17.27*TMax)/(TMax+237.3))
     e0_TMin <- 0.6108*exp((17.27*TMin)/(TMin+237.3))
