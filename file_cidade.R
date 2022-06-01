@@ -1,6 +1,6 @@
 
 file_tempo <- function(cidade) {
-  obj <- readxl::read_excel("estacoes.xlsx", sheet = "SC") %>% dplyr::filter(DC_NOME == cidade)
+  obj <- readxl::read_excel("estacoes.xlsx", sheet = "Catalogo") %>% dplyr::filter(DC_NOME == cidade)
 
   anos <- with(
     obj,
