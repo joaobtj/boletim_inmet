@@ -3,7 +3,7 @@
 on:
   push:
   schedule:
-    - cron: '01 01 01 01 * *'
+    - cron: '1 1 1 1 * *'
 
 name: render-rmarkdown
 
